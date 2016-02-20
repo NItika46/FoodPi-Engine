@@ -4,7 +4,10 @@ import sys
 import Adafruit_DHT
 import RPi.GPIO as GPIO
  
+#Refering to Broadcom SOC Channel
 GPIO.setmode(GPIO.BCM)
+
+#Opening SPI Port of Raspberry Pi
 spi = spidev.SpiDev()
 spi.open(0,0)
 
@@ -14,7 +17,7 @@ sen2 = 1
 sen3 = 2
 
 # GPIO signals to use
-dht_pin = '18'
+dht_pin = 18 #Physical Pin 12
 
 # Physical pins 11,15,16,18 for Stepper Motor
 # GPIO17,GPIO22,GPIO23,GPIO24
@@ -95,11 +98,7 @@ def readadc(adcnum):
  
  #To read temperature and humidity
 def readdht():
-	sensor_args = { '11': Adafruit_DHT.DHT11,
-					'22': Adafruit_DHT.DHT22,
-					'2302': Adafruit_DHT.AM2302 }
-	dht_sensor = sensor_args['22']
-	humidity, temperature = Adafruit_DHT.read_retry(dht_sensor, dht_pin)
+	humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, dht_pin)
 	return humidity, temperature
 
  
